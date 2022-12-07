@@ -1,10 +1,18 @@
 import { render, screen, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import App from "./App";
 
 test("Test if clear button has been render", () => {
   render(<App />);
   const linkElement = screen.getByRole("button");
   expect(linkElement).toBeInTheDocument();
+});
+
+test("Test functionality of clear button", () => {
+  render(<App />);
+  userEvent.click(screen.getByRole("button"));
+  const input = screen.getByPlaceholderText("type-something");
+  expect(input.value).toBe("");
 });
 
 test("Test for first single uppercase character", () => {
@@ -53,4 +61,12 @@ test("Test for numbers mixed with characters", () => {
   fireEvent.change(input, { target: { value: "I8v9a10n" } });
   const sum = screen.getByTestId("sum");
   expect(sum.textContent).toBe("46");
+});
+
+test("Test for special characters", () => {
+  render(<App />);
+  const input = screen.getByPlaceholderText("type-something");
+  fireEvent.change(input, { target: { value: "$#@!#$%ˆ&" } });
+  const sum = screen.getByTestId("sum");
+  expect(sum.textContent).toBe("0");
 });
