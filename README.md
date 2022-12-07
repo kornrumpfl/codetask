@@ -25,6 +25,6 @@ Write a program that:
 ## How to run it
 
 1. clone repository
-2. run `npm install` to install all dependecies
+2. run `npm install` to install all dependencies
 3. run `npm start` Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 4. run `npm test` to run the unit-tests
