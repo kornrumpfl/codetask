@@ -2,10 +2,14 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../App";
 
-test("Test if clear button has been render", () => {
+test("Test if all Elements had been rendered", () => {
   render(<App />);
-  const linkElement = screen.getByRole("button");
-  expect(linkElement).toBeInTheDocument();
+  const buttonElement = screen.getByRole("button");
+  expect(buttonElement).toBeInTheDocument();
+  const inputElement = screen.getByPlaceholderText("type-something");
+  expect(inputElement).toBeInTheDocument();
+  const spanElement = screen.getByTestId("sum");
+  expect(spanElement).toBeInTheDocument();
 });
 
 test("Test functionality of clear button", () => {
@@ -47,12 +51,20 @@ test("Test for full word", () => {
   expect(sum.textContent).toBe("64");
 });
 
-test("Test empty string", () => {
+test("Test empty string between text", () => {
   render(<App />);
   const input = screen.getByPlaceholderText("type-something");
   fireEvent.change(input, { target: { value: "Te st" } });
   const sum = screen.getByTestId("sum");
   expect(sum.textContent).toBe("64");
+});
+
+test("Test empty string", () => {
+  render(<App />);
+  const input = screen.getByPlaceholderText("type-something");
+  fireEvent.change(input, { target: { value: "" } });
+  const sum = screen.getByTestId("sum");
+  expect(sum.textContent).toBe("0");
 });
 
 test("Test for numbers mixed with characters", () => {
