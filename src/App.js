@@ -48,6 +48,11 @@ function App() {
     }
   }
 
+  function handleClear() {
+    setName("");
+    setSum(0);
+  }
+
   return (
     <Main>
       <h1>Coding task</h1>
@@ -60,6 +65,7 @@ function App() {
         onChange={handleChange}
       ></input>
       <span data-testid="sum">{sum}</span>
+      <button onClick={handleClear}>Clear All</button>
     </Main>
   );
 }
@@ -83,5 +89,10 @@ const Main = styled.section`
   span {
     align-self: center;
     padding: 15px;
+  }
+
+  button {
+    width: 10vw;
+    align-self: center;
   }
 `;
